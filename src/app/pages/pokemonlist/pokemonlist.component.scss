@@ -1,0 +1,137 @@
+$primary-color: #2a75bb;
+$secondary-color: #1b5790;
+$background-color: #f5f7fa;
+$card-background: white;
+$text-gray: #6b7280;
+$border-radius: 10px;
+$box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+$padding: 2rem;
+
+*body{
+  height: calc(100vh - 4rem);
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin button-styles {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $secondary-color;
+  }
+}
+
+@mixin card-styles {
+  text-align: center;
+  background: $card-background;
+  border-radius: $border-radius;
+  border: solid 2px rgba(0, 0, 0, 0.089);
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.pokemon-list{
+  height: 100vh;
+  background-image: url('../../../assets/images/backgroundlogin.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem 2rem;
+  background-color: white;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .links {
+    display: flex;
+    gap: 1rem;
+
+    a {
+      color: $primary-color;
+      text-decoration: none;
+      transition: text-decoration 0.3s ease;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(187px, 1fr));
+  gap: 1rem;
+}
+
+.card-link {
+  text-decoration: none;
+}
+
+.pokemon-card {
+  @include card-styles;
+
+  &:hover .pokemon-name {
+    color: black;
+  } 
+
+  &:hover .pokemon-id {
+    color: black;
+  } 
+}
+
+.pokemon-image {
+  display: block;
+  margin: auto;
+  width: 120px;
+  height: 120px;
+}
+
+.pokemon-name {
+  text-transform: capitalize;
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  color: $text-gray;
+}
+
+.pokemon-id {
+  color: $text-gray;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1.5rem;
+  }
+}

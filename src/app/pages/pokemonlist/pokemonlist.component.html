@@ -1,0 +1,34 @@
+<div class="pokemon-list">
+<div class="container">
+  <div class="header">
+      <h1>Pokédex</h1>
+      <div class="links">
+          <a routerLink="/pokemonsearch" class="text-primary">Buscar</a>
+          <a routerLink="/pokemontypelist" class="text-primary">Filtrar por Tipo</a>
+      </div>
+  </div>
+
+  <div class="grid">
+      @for (pokemon of pokemons?.pokemons?.results; track pokemon.name) {
+          <a [routerLink]="['/pokemon', pokemon.name]" class="card-link">
+              <mat-card class="pokemon-card">
+                  <mat-card-content>
+                      <img 
+                          [src]="pokemon.image"
+                          [alt]="pokemon.name"
+                          class="pokemon-image"
+                      />
+                      <h2 class="pokemon-name">{{ pokemon.name | capitalize }}</h2>
+                      <p class="pokemon-id">#{{ pokemon.id | number: '3.0-0' }}</p>
+                  </mat-card-content>
+              </mat-card>
+          </a>
+      }
+  </div>
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="offset === 0">Anterior</button>
+    <button (click)="nextPage()">Siguiente</button>
+  </div>
+</div>
+</div>
+

@@ -1,8 +1,19 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
+import { InMemoryCache } from '@apollo/client/core';
+import { provideApollo  } from 'apollo-angular';
+import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)]
+  providers: [
+    provideRouter(routes),
+    provideHttpClient(),
+    provideAnimations(),
+    provideApollo(() => ({
+      uri: 'https://graphql-pokeapi.graphcdn.app',
+      cache: new InMemoryCache(),
+    }))
+  ],
 };
