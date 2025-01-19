@@ -6,51 +6,93 @@
             </button>
         </a>
     
-        <mat-card class="pokemon-card">
-            <mat-card-header class="header-section">
-                <mat-card-title class="pokemon-title">
-                    <b>{{ pokemon?.pokemon?.name | capitalize }}</b> #{{ pokemon?.pokemon?.id }}
-                </mat-card-title>
-                <div class="pokemon-type-container">
-                    @for (type of pokemon?.pokemon?.types; track type.type.name) {
-                        <span class="pokemon-type" 
-                              [ngStyle]="{ 'color': getPokemonTypeStyle(type.type.name).color, 'background-color': getPokemonTypeStyle(type.type.name).background }">
-                            {{ getPokemonType(type.type.name) }}
-                        </span>
-                    }
-                </div>
-            </mat-card-header>
-    
-            <mat-card-content>
-                <div class="pokemon-content">
-                    <div class="pokemon-image-container">
-                        <div class="image-background">
-                            <img 
-                                [src]="pokemon?.pokemon?.sprites?.other?.['official-artwork']?.front_default || pokemon?.pokemon?.sprites?.front_default"
-                                [alt]="pokemon?.pokemon?.name"
-                                class="pokemon-image"
-                            />
+        <div class="pokemon-cards-container">
+            @if (pokemon.length !== 0) {
+                <mat-card class="pokemon-card" style="justify-content: space-between;">
+                    <mat-card-header class="header-section">
+                        <mat-card-title class="pokemon-title">
+                            <b>{{ pokemon?.pokemon?.name | capitalize }}</b> #{{ pokemon?.pokemon?.id }}
+                        </mat-card-title>
+                        <div class="pokemon-type-container">
+                            @for (type of pokemon?.pokemon?.types; track type.type.name) {
+                                <span class="pokemon-type" 
+                                      [ngStyle]="{ 'color': getPokemonTypeStyle(type.type.name).color, 'background-color': getPokemonTypeStyle(type.type.name).background }">
+                                    {{ getPokemonType(type.type.name) }}
+                                </span>
+                            }
                         </div>
-                    </div>
-                </div>
-    
-                <div class="pokemon-stats">
-                    @for (stat of pokemon?.pokemon?.stats; track stat.stat.name) {
-                        <div class="pokemon-stat">
-                            <div class="stat-header">
-                                <span>{{ getPokemonStat(stat.stat.name) }}</span>
-                                <span><strong>{{ ((stat.base_stat / 255) * 100) | number:'1.0-0' }}%</strong></span>
-                            </div>
-                            <div class="stat-bar">
-                                <div class="stat-bar-fill" 
-                                    [ngStyle]="{ 'background-color': getPokemonTypeStyle(pokemon?.pokemon?.types[0]?.type.name).background }" 
-                                    [style.width.%]="(stat.base_stat / 255) * 100">
+                    </mat-card-header>
+            
+                    <mat-card-content>
+                        <div class="pokemon-content">
+                            <div class="pokemon-image-container">
+                                <div class="image-background">
+                                    <img 
+                                        [src]="pokemon?.pokemon?.sprites?.other?.['official-artwork']?.front_default || pokemon?.pokemon?.sprites?.front_default"
+                                        [alt]="pokemon?.pokemon?.name"
+                                        class="pokemon-image-firstcard"
+                                    />
                                 </div>
                             </div>
                         </div>
-                    }
-                </div>
-            </mat-card-content>
-        </mat-card>
+            
+                        <div class="pokemon-stats">
+                            @for (stat of pokemon?.pokemon?.stats; track stat.stat.name) {
+                                <div class="pokemon-stat">
+                                    <div class="stat-header">
+                                        <span>{{ getPokemonStat(stat.stat.name) }}</span>
+                                        <span><strong>{{ ((stat.base_stat / 255) * 100) | number:'1.0-0' }}%</strong></span>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-fill" 
+                                            [ngStyle]="{ 'background-color': getPokemonTypeStyle(pokemon?.pokemon?.types[0]?.type.name).background }" 
+                                            [style.width.%]="(stat.base_stat / 255) * 100">
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            }
+
+            @if (EvolutiveLine.length !== 0) {
+                <mat-card class="pokemon-card">
+                    <mat-card-header class="header-section">
+                        <mat-card-title class="pokemon-title">
+                            <b>Linea evolutiva</b>
+                        </mat-card-title>
+                    </mat-card-header>
+            
+                    <mat-card-content>
+                        <div class="pokemon-evolution-grid">
+                            <div class="pokemon-image-container" style="justify-content: space-between;">
+                                <b>{{ pokemon?.pokemon?.name | capitalize }}</b>
+                                <div class="image-background">
+                                    <img 
+                                        [src]="pokemon?.pokemon?.sprites?.other?.['official-artwork']?.front_default || pokemon?.pokemon?.sprites?.front_default"
+                                        [alt]="pokemon?.pokemon?.name"
+                                        class="pokemon-image"
+                                    />
+                                </div>
+                            </div>
+                            @for(pokemon of EvolutiveLine; track pokemon.pokemon.id) {
+                                <div class="pokemon-evolution">
+                                    <b>{{ pokemon?.pokemon?.name | capitalize }}</b>
+                                    <div class="pokemon-evolution-image">
+                                        <img 
+                                            [src]="pokemon?.pokemon?.sprites?.front_default"
+                                            [alt]="pokemon?.pokemon?.name"
+                                            class="pokemon-image"
+                                        />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+            
+                    </mat-card-content>
+                </mat-card>
+            }
+        </div>     
     </section>
 </div>

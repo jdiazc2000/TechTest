@@ -1,20 +1,22 @@
-import { Component } from '@angular/core';
+import { LoaderService } from './../../services/loader/loader.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PokemonService } from '../../services/pokemon/pokemon.service';
 import { firstValueFrom } from 'rxjs';
-import { CapitalizePipe } from "../../pipes/capitalize.pipe";
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { NotespecialcharacterDirective } from '../../core/directives/notespecialcharacter.directive';
+import { CardComponent } from '../../components/card/card.component';
 
 @Component({
   selector: 'app-pokemonlist',
   standalone: true,
-  imports: [CapitalizePipe, CommonModule, MatCardModule, RouterModule, FormsModule],
+  imports: [CommonModule, MatCardModule, RouterModule, FormsModule, NotespecialcharacterDirective, CardComponent],
   templateUrl: './pokemonlist.component.html',
   styleUrl: './pokemonlist.component.scss'
 })
-export class PokemonlistComponent {
+export class PokemonlistComponent implements OnInit, OnDestroy {
   pokemons: any[] = [];
   allpokemons: any[] = [];
   filteredPokemons: any[] = [];
@@ -25,11 +27,11 @@ export class PokemonlistComponent {
   
   limit = 15;
   offset = 0;
-
-  constructor(private pokemonService: PokemonService) {}
+  
+  constructor(private pokemonService: PokemonService, private loaderService: LoaderService, private router: Router) {}
 
   async ngOnInit() {
-    this.loading = true;
+    this.loaderService.showLoading();
     try {
       const alldata: any = await firstValueFrom(this.pokemonService.getPokemons(1302, 0));
       this.allpokemons = alldata.pokemons.results || [];
@@ -37,24 +39,29 @@ export class PokemonlistComponent {
       await this.fetchPaginatedPokemons();
     } catch (error) {
       console.error("Error fetching Pokémons:", error);
+      this.loaderService.showLoadingError('list');
     }
-    this.loading = false;
+  }
+
+  ngOnDestroy(): void {
+    this.loaderService.closeLoading();
   }
 
   async fetchPaginatedPokemons(): Promise<void> {
-    this.loading = true;
     try {
-      if (this.filtered) {
-        this.displayedPokemons = this.filteredPokemons.slice(this.offset, this.offset + this.limit);
-      } else {
-        const data: any = await firstValueFrom(this.pokemonService.getPokemons(this.limit, this.offset));
-        this.pokemons = data.pokemons.results || [];
-        this.displayedPokemons = this.pokemons;
-      }
+      this.loaderService.showLoading();
+        if (this.filtered) {
+          this.displayedPokemons = this.filteredPokemons.slice(this.offset, this.offset + this.limit);
+        } else {
+          const data: any = await firstValueFrom(this.pokemonService.getPokemons(this.limit, this.offset));
+          this.pokemons = data.pokemons.results || [];
+          this.displayedPokemons = this.pokemons;
+        }
+      this.loaderService.closeLoading()
     } catch (error) {
       console.error("Error fetching paginated Pokémons:", error);
+      this.loaderService.showLoadingError('list');
     }
-    this.loading = false;
   }
 
   onSearch(): void {
@@ -96,5 +103,13 @@ export class PokemonlistComponent {
       this.offset -= this.limit;
       await this.fetchPaginatedPokemons();
     }
+  }
+
+  returnToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  GoUsers() {
+    this.router.navigate(['/usersmaintenance']);
   }
 }

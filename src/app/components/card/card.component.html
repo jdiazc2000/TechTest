@@ -1,0 +1,14 @@
+<a [routerLink]="['/pokemon', pokemon.name]" class="card-link">
+    <mat-card class="pokemon-card">
+        <mat-card-content>
+            <img 
+                [src]="pokemon.image"
+                [alt]="pokemon.name"
+                class="pokemon-image"
+                alt="pokemon.name"
+            />
+            <h2 class="pokemon-name">{{ pokemon.name | capitalize }}</h2>
+            <p class="pokemon-id">#{{ pokemon.id | number: '3.0-0' }}</p>
+        </mat-card-content>
+    </mat-card>
+</a>

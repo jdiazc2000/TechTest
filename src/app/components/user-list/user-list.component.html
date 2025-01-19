@@ -1,0 +1,19 @@
+<div class="user-list">
+    <div class="header">
+      <h1>Gestión de Usuarios</h1>
+      <button mat-button color="primary" (click)="openUserForm()">Agregar Usuario</button>
+    </div>
+  
+    <div class="grid">
+      @for (user of users; track $index) {
+        <div class="user-card">
+        <img [src]="user.photo" alt="{{ user.name }}">
+        <h2>{{ user.name }}</h2>
+        <p>{{ user.town }}</p>
+        <p>Registrado el: {{ user.registrationDate | date: 'dd/MM/yyyy' }}</p>
+        <button mat-button color="warn" (click)="deleteUser(user.id)">Eliminar</button>
+      </div>
+     }
+    </div>
+  </div>
+  

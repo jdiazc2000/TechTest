@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { PokemonService } from '../../services/pokemon/pokemon.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +10,7 @@ import { POKEMON_TYPE_TRANSLATIONS } from '../../core/consts/POKEMON_TYPE_TRANSL
 import { POKEMON_TYPE_COLORS } from '../../core/consts/POKEMON_TYPE_COLORS'
 import { POKEMON_STATS_TRANSLATIONS } from '../../core/consts/POKEMON_STATS_TRANSLATIONS'
 import { CapitalizePipe } from "../../pipes/capitalize.pipe";
+import { LoaderService } from '../../services/loader/loader.service';
 
 @Component({
   selector: 'app-pokemondetail',
@@ -23,26 +24,48 @@ export class PokemondetailComponent {
   pokemon: any = [];
   pokemonname: string = "";
   loading: boolean = true;
+  EvolutiveLine: any = [];
 
-  constructor(private pokemonService: PokemonService, private route: ActivatedRoute) {
+  constructor(private pokemonService: PokemonService, private route: ActivatedRoute, private loaderService: LoaderService) {
     this.pokemonname = this.route.snapshot.params['name'];
   }
 
   ngOnInit() {
-    console.log(this.pokemonname)
     this.fetchPokemon();
   }
 
   async fetchPokemon(): Promise<void> {
-    this.loading = true;
+    this.loaderService.showLoading();
     try {
       const data: any = await firstValueFrom(this.pokemonService.getPokemon(this.pokemonname));
       this.pokemon = data?.pokemon ? data : [];  
-      console.log(this.pokemon)
-      this.loading = false;
+      
+      const evoluationline: any = await firstValueFrom(this.pokemonService.getPokemonEvolutionLine(this.pokemon.pokemon.id.toString()));
+
+      for(let i = 0; i < evoluationline.evolutionChain?.response?.chain?.evolves_to?.length; i++){
+        this.PushPokemonToEvolutiveLine(evoluationline.evolutionChain?.response?.chain?.evolves_to[i]?.species?.name);
+
+        for(let j = 0; j < evoluationline.evolutionChain?.response?.chain?.evolves_to[j]?.evolves_to?.length; j++){
+          this.PushPokemonToEvolutiveLine(evoluationline.evolutionChain?.response?.chain?.evolves_to[i]?.evolves_to[j]?.species?.name);
+        }
+      }
+      
+      this.loaderService.closeLoading();
     } catch (error) {
       console.error("Error fetching Pokémons:", error);
-      this.loading = false;
+      this.loaderService.showLoadingError('detail');
+    }
+  }
+
+  async PushPokemonToEvolutiveLine(pokemon: string): Promise<void> {
+    try {
+      this.loaderService.showLoading();
+      const data: any = await firstValueFrom(this.pokemonService.getPokemon(pokemon));
+      this.EvolutiveLine.push(data);  
+      this.loaderService.closeLoading();
+    } catch (error) {
+      console.error("Error fetching Pokemon evolutive line:", error);
+      this.loaderService.showLoadingError('detail');
     }
   }
   

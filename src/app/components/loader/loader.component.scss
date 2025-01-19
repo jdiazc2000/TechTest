@@ -1,0 +1,138 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  
+  .popup {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 400px;
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .spinnercontainer{
+    height: 7rem;
+    display: grid;
+    justify-items: center;
+    margin-bottom: 2rem;
+    align-items: center;
+  }
+  
+  .spinneritem{
+    height: 5rem;
+    width: 5rem;
+    border-width: 0.5rem;
+  }
+  
+  
+  img {
+    max-width: 16rem;
+    height: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  
+  p {
+    margin: 10px 0;
+    font-size: 1rem;
+  }
+  
+
+  html, body {
+    height: 100%;
+  }
+  
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .pokemon {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    background: linear-gradient(to bottom, rgb(254, 0, 1) 50%, white 50% );
+    border-radius: 50%;
+    border: 8px solid black;
+    animation: spin 1s linear infinite;
+  }
+  
+  .pokemon::before {
+    content: '';
+    position: absolute;
+    height: 8px;
+    width: 100px;
+    right: 0px;
+    background: black;
+    top: 50px;
+    transform: translatey(-50%);
+  }
+  
+  .pokemon::after {
+    content: '';
+    position: absolute;
+    height: 38px;
+    width: 38px;
+    border-radius: 50%;
+    background: white;
+    top: 50px;
+    left: 50px;
+    transform: translate(-50%, -50%);
+    box-shadow: inset 0 0 0 8px black, inset 0 0 0 10px white, inset 0 0 0 12px black;
+  }
+
+  img {
+    max-width: 7rem;
+    height: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+
+  .closebtn{
+    margin-top: 1rem;
+    color: white;
+    font-family: sans-serif;
+    border: none;
+    background-color: #c70000;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0.5em;
+    width: 18rem;
+    border-radius: 1rem;
+    transition: background-color 0.1s ease-in-out; 
+
+    &:hover {
+      background-color: #910000;
+    }
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }

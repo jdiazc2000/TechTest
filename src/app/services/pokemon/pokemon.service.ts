@@ -6,11 +6,6 @@ import { map, Observable } from 'rxjs';
 const GET_POKEMONS = gql`
   query pokemons($limit: Int, $offset: Int) {
     pokemons(limit: $limit, offset: $offset) {
-      count
-      next
-      previous
-      status
-      message
       results {
         url
         name
@@ -49,6 +44,18 @@ const GET_POKEMONS = gql`
 }
   `;
 
+  const GET_POKEMON_EVOLUTIVE_LINE = gql`
+  query evolutionChain($id: String!) {
+    evolutionChain(id: $id) {
+      params
+      status
+      message
+      response
+    }
+  }
+  `;
+  
+
 @Injectable({
   providedIn: 'root'
 })
@@ -71,6 +78,17 @@ export class PokemonService {
     return this.apollo.watchQuery({
       query: GET_POKEMON,
       variables: { name }
+    }).valueChanges.pipe(
+      map((result: any) => {
+        return result?.data || [];
+      })
+    );
+  }
+
+  getPokemonEvolutionLine(id: string): Observable<any[]> {
+    return this.apollo.watchQuery({
+      query: GET_POKEMON_EVOLUTIVE_LINE,
+      variables: { id }
     }).valueChanges.pipe(
       map((result: any) => {
         return result?.data || [];

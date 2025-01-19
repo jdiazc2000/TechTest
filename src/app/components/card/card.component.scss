@@ -1,0 +1,52 @@
+$card-background: white;
+$text-gray: #6b7280;
+$border-radius: 10px;
+$box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+$padding: 2rem;
+
+@mixin card-styles {
+    text-align: center;
+    background: $card-background;
+    border-radius: $border-radius;
+    border: solid 2px rgba(0, 0, 0, 0.089);
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+  
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+.card-link {
+    text-decoration: none;
+  }
+  
+  .pokemon-card {
+    @include card-styles;
+    padding: 1.5rem;
+    max-height: 268px;
+    
+    &:hover .pokemon-name,
+    &:hover .pokemon-id {
+      color: black;
+    }
+  }
+  
+  .pokemon-image {
+    display: block;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .pokemon-name {
+    text-transform: capitalize;
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+    color: $text-gray;
+  }
+  
+  .pokemon-id {
+    color: $text-gray;
+    font-size: 0.9rem;
+  }

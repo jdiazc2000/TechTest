@@ -11,6 +11,16 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    .container{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background-color: #ffffff65;
+      border-radius: 8px;
+    }
   
     h1 {
       font-size: 2.5rem; 
@@ -40,5 +50,12 @@
       width: auto;
       height: 200px;
     }
+
+    @media (max-width: 581px) {
+      .container{
+        margin: 1rem;
+      }
+    }
+
   }
   
