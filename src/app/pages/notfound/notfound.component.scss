@@ -6,6 +6,11 @@
     height: 100vh;
     background-color: #f3f4f6;
     text-align: center;
+    min-height: 100vh;
+    background-image: url('../../../assets/images/backgroundlogin.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   
     h1 {
       font-size: 2.5rem; 

@@ -32,7 +32,7 @@ $padding: 2rem;
 
 .login-container {
   @include flex-center;
-  height: 100vh;
+  min-height: 100vh;
   background-image: url('../../../assets/images/backgroundlogin.webp');
   background-size: cover;
   background-position: center;

@@ -3,16 +3,12 @@ import { authGuard } from './guards/auth.guard';
 import { LoginComponent } from './pages/login/login.component';
 import { PokemonlistComponent } from './pages/pokemonlist/pokemonlist.component';
 import { PokemondetailComponent } from './pages/pokemondetail/pokemondetail.component';
-import { PokemonsearchComponent } from './pages/pokemonsearch/pokemonsearch.component';
-import { PokemontypelistComponent } from './pages/pokemontypelist/pokemontypelist.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'list', component: PokemonlistComponent },
   { path: 'pokemon/:name', component: PokemondetailComponent },
-  { path: 'search', component: PokemonsearchComponent },
-  { path: 'types', component: PokemontypelistComponent },
   { path: 'dashboard', component: PokemonlistComponent, canActivate: [authGuard] },
   { path: '**', component: NotfoundComponent }
   ];

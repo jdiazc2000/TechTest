@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
-import { map, Observable, shareReplay } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 
 const GET_POKEMONS = gql`
@@ -36,6 +36,12 @@ const GET_POKEMONS = gql`
     }
     types {
       type {
+        name
+      }
+    }
+    stats {
+      base_stat
+      stat {
         name
       }
     }

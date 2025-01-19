@@ -1,60 +1,56 @@
 <div class="container">
-    <a routerLink="/pokemonlist">
-        <button mat-stroked-button class="back-button">
-            Volver a la Lista
-        </button>
-    </a>
-
-    <mat-card class="pokemon-card">
-        <mat-card-header>
-            <mat-card-title class="pokemon-title">
-                {{ pokemon?.pokemon?.name | titlecase }}
-            </mat-card-title>
-        </mat-card-header>
-
-        <mat-card-content>
-            <div class="pokemon-content">
-                <!-- Imagen del Pokémon -->
-                <div class="pokemon-image-container">
-                    <img 
-                        [src]="pokemon?.pokemon?.sprites?.other?.['official-artwork']?.front_default || pokemon?.pokemon?.sprites?.front_default"
-                        [alt]="pokemon?.pokemon?.name"
-                        class="pokemon-image"
-                    />
+    <section>
+        <a routerLink="/list">
+            <button mat-stroked-button class="back-button">
+                Volver a la Lista
+            </button>
+        </a>
+    
+        <mat-card class="pokemon-card">
+            <mat-card-header class="header-section">
+                <mat-card-title class="pokemon-title">
+                    <b>{{ pokemon?.pokemon?.name | capitalize }}</b> #{{ pokemon?.pokemon?.id }}
+                </mat-card-title>
+                <div class="pokemon-type-container">
+                    @for (type of pokemon?.pokemon?.types; track type.type.name) {
+                        <span class="pokemon-type" 
+                              [ngStyle]="{ 'color': getPokemonTypeStyle(type.type.name).color, 'background-color': getPokemonTypeStyle(type.type.name).background }">
+                            {{ getPokemonType(type.type.name) }}
+                        </span>
+                    }
                 </div>
-
-                <div class="pokemon-details">
-                    <!-- Tipos -->
-                    <div class="pokemon-section">
-                        <h3>Tipos</h3>
-                        <div class="pokemon-types">
-                            @for (type of pokemon?.pokemon?.types; track type.type.name) {
-                                <span class="pokemon-type">
-                                    {{ type.type.name }}
-                                </span>
-                            }
+            </mat-card-header>
+    
+            <mat-card-content>
+                <div class="pokemon-content">
+                    <div class="pokemon-image-container">
+                        <div class="image-background">
+                            <img 
+                                [src]="pokemon?.pokemon?.sprites?.other?.['official-artwork']?.front_default || pokemon?.pokemon?.sprites?.front_default"
+                                [alt]="pokemon?.pokemon?.name"
+                                class="pokemon-image"
+                            />
                         </div>
                     </div>
-
-                    <!-- Estadísticas -->
-                    <div class="pokemon-section">
-                        <h3>Estadísticas</h3>
-                        <div class="pokemon-stats">
-                            @for (stat of pokemon?.pokemon?.stats; track stat.stat.name) {
-                                <div class="pokemon-stat">
-                                    <div class="stat-header">
-                                        <span>{{ stat.stat.name | titlecase }}</span>
-                                        <span>{{ stat.base_stat }}</span>
-                                    </div>
-                                    <div class="stat-bar">
-                                        <div class="stat-bar-fill" [style.width.%]="(stat.base_stat / 255) * 100"></div>
-                                    </div>
+                </div>
+    
+                <div class="pokemon-stats">
+                    @for (stat of pokemon?.pokemon?.stats; track stat.stat.name) {
+                        <div class="pokemon-stat">
+                            <div class="stat-header">
+                                <span>{{ getPokemonStat(stat.stat.name) }}</span>
+                                <span><strong>{{ ((stat.base_stat / 255) * 100) | number:'1.0-0' }}%</strong></span>
+                            </div>
+                            <div class="stat-bar">
+                                <div class="stat-bar-fill" 
+                                    [ngStyle]="{ 'background-color': getPokemonTypeStyle(pokemon?.pokemon?.types[0]?.type.name).background }" 
+                                    [style.width.%]="(stat.base_stat / 255) * 100">
                                 </div>
-                            }
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
-            </div>
-        </mat-card-content>
-    </mat-card>
+            </mat-card-content>
+        </mat-card>
+    </section>
 </div>

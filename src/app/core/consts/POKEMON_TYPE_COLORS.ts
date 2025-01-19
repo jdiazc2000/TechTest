@@ -1,0 +1,20 @@
+export const POKEMON_TYPE_COLORS: { [key: string]: { text: string; background: string } } = {
+  "normal": { text: "#5A5A3E", background: "#A8A878" },
+  "fire": { text: "#CC3311", background: "#FFA07A" },
+  "water": { text: "#1D7ACC", background: "#99CCFF" },
+  "electric": { text: "#7A6A00", background: "#FFEA70" },
+  "grass": { text: "#2E7D32", background: "#A8E6A3" },
+  "ice": { text: "#1D88B0", background: "#B0E2FF" },
+  "fighting": { text: "#A02824", background: "#D67873" },
+  "poison": { text: "#8A2C8A", background: "#C183C1" },
+  "ground": { text: "#C1A656", background: "#EBD69D" },
+  "flying": { text: "#8A76C7", background: "#C6B7F5" },
+  "psychic": { text: "#D04676", background: "#FFB6C1" },
+  "bug": { text: "#8B9700", background: "#D6E596" },
+  "rock": { text: "#978326", background: "#D1C17D" },
+  "ghost": { text: "#594480", background: "#A292BC" },
+  "dragon": { text: "#5C2DBB", background: "#A27DFA" },
+  "dark": { text: "#4D3B33", background: "#A29288" },
+  "steel": { text: "#9696B0", background: "#D1D1E0" },
+  "fairy": { text: "#D77C91", background: "#F4BDC9" }
+};
