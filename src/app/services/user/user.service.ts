@@ -31,4 +31,25 @@ export class UserService {
       this.saveUsersToSession();
       this.userSubject.next(this.users);
     }
+
+    editUser(id: number, updatedUser: Partial<User>) {
+      const index = this.users.findIndex(user => user.id === id);
+      if (index !== -1) {
+        this.users[index] = { ...this.users[index], ...updatedUser };
+        this.saveUsersToSession();
+        this.userSubject.next(this.users);
+      }
+    }
+
+    getUser(): User[] {
+      return sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user') as string) : [];
+    }
+
+    getUserById(id: number): User | undefined {
+      return this.users.find(user => user.id === id);
+    }
+
+    getUserByUsernameAndPassword(username: string, password: string): User | undefined {
+      return this.users.find(user => user.username === username && user.password === password);
+    }
   }

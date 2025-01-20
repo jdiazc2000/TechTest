@@ -106,9 +106,9 @@ $translucentbackground: #ffffff65;
   background-color: $translucentbackground;
   border-radius: 8px;
   gap: 1rem;
+  height: 780px;
+  overflow: auto; 
 }
-
-
 
 .pagination {
   display: flex;

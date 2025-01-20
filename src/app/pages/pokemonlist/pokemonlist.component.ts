@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user/user.service';
 import { LoaderService } from './../../services/loader/loader.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PokemonService } from '../../services/pokemon/pokemon.service';
@@ -24,14 +25,18 @@ export class PokemonlistComponent implements OnInit, OnDestroy {
   searchQuery: string = '';
   loading: boolean = true;
   filtered: boolean = false;
+
+  user: any;
   
   limit = 15;
   offset = 0;
   
-  constructor(private pokemonService: PokemonService, private loaderService: LoaderService, private router: Router) {}
+  constructor(private pokemonService: PokemonService, private loaderService: LoaderService, private router: Router, private userService: UserService) {}
 
   async ngOnInit() {
     this.loaderService.showLoading();
+    this.user = this.userService.getUser();
+    console.log(this.user)
     try {
       const alldata: any = await firstValueFrom(this.pokemonService.getPokemons(1302, 0));
       this.allpokemons = alldata.pokemons.results || [];

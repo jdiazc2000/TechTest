@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
+import { UserListComponent } from '../../components/user-list/user-list.component';
 
 @Component({
   selector: 'app-usersmaintenance',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, UserListComponent],
   templateUrl: './usersmaintenance.component.html',
   styleUrl: './usersmaintenance.component.scss'
 })
@@ -15,17 +15,15 @@ export class UsersmaintenanceComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.router.navigate(['/usersmaintenance/list']);
+    this.router.navigate(['/usersmaintenance']);
   }
 
-  onSearch() {
-  throw new Error('Method not implemented.');
+  returnToPokemonList() {
+    this.router.navigate(['/list']);
   }
+
   returnToLogin() {
-  throw new Error('Method not implemented.');
-  }
-  GoUsers() {
-  throw new Error('Method not implemented.');
+    this.router.navigate(['/login']);
   }
 
 }

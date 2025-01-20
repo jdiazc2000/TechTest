@@ -1,1 +1,67 @@
-<p>user-form works!</p>
+<div class="overlay">
+    <div class="popup">  
+
+      <div class="user-form">
+        <h2>{{Editing ? 'Editar Usuario' : 'Nuevo Usuario'}} </h2>
+      
+        <form [formGroup]="userForm" (ngSubmit)="Editing ? editUser() : submit()">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="name">
+            <mat-error *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched">
+              Nombre requerido (mínimo 3 caracteres)
+            </mat-error>
+          </mat-form-field>
+      
+          <mat-form-field appearance="outline">
+            <mat-label>Pueblo de Origen</mat-label>
+            <input matInput formControlName="town">
+            <mat-error *ngIf="userForm.get('town')?.invalid && userForm.get('town')?.touched">
+              Pueblo de origen requerido
+            </mat-error>
+          </mat-form-field>
+      
+          <mat-form-field appearance="outline">
+            <mat-label>Fecha de Registro</mat-label>
+            <input matInput type="date" formControlName="registrationDate">
+            <mat-error *ngIf="userForm.get('registrationDate')?.invalid && userForm.get('registrationDate')?.touched">
+              Fecha requerida
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Usuario</mat-label>
+            <input matInput formControlName="username">
+            <mat-error *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched">
+              Usuario requerido
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Contraseña</mat-label>
+            <input matInput formControlName="password">
+            <mat-error *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched">
+              Fecha requerida
+            </mat-error>
+          </mat-form-field>
+
+          <mat-slide-toggle formControlName="admin">Administrador</mat-slide-toggle>
+      
+          <div class="file-input">
+            <label for="file-upload" class="file-label">Subir Foto</label>
+            <input id="file-upload" type="file" (change)="onFileChange($event)">
+          </div>
+      
+          <footer>
+            <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">{{Editing ? 'Editar' : 'Agregar'}}</button>
+            <button mat-raised-button color="primary" (click)="closeModal()">Cancelar</button>
+          </footer>
+          
+
+        </form>
+      </div>
+      
+    </div>
+</div>  
+
+

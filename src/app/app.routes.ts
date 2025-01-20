@@ -5,20 +5,14 @@ import { PokemonlistComponent } from './pages/pokemonlist/pokemonlist.component'
 import { PokemondetailComponent } from './pages/pokemondetail/pokemondetail.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { UsersmaintenanceComponent } from './pages/usersmaintenance/usersmaintenance.component';
-import { UserListComponent } from './components/user-list/user-list.component';
-import { UserFormComponent } from './components/user-form/user-form.component';
+import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'list', component: PokemonlistComponent },
-  { path: 'pokemon/:name', component: PokemondetailComponent },
-  { path: 'usersmaintenance', 
-    component: UsersmaintenanceComponent, 
-    canActivate: [authGuard], 
-    children: [
-      {path: 'list', component: UserListComponent},
-      {path: 'add', component: UserFormComponent},
-    ] 
-  },
-  { path: '**', component: NotfoundComponent }
-  ];
+  { path: 'list', component: PokemonlistComponent, canActivate: [authGuard] },
+  { path: 'pokemon/:name', component: PokemondetailComponent, canActivate: [authGuard]  },
+  { path: 'usersmaintenance', component: UsersmaintenanceComponent, canActivate: [adminGuard]},
+  { path: '**', component: NotfoundComponent},
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
+  
+];

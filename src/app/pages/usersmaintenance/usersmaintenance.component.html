@@ -5,8 +5,8 @@
         <h1 class="pokedex-title">Pokédex</h1>
         <div class="search-bar">
           <div class="button-group"> 
-            <button mat-icon-button class="filter-button" (click)="GoUsers()">
-              Listado
+            <button mat-icon-button class="filter-button" (click)="returnToPokemonList()">
+              Listado de Pokemones
             </button>
             <button mat-icon-button class="filter-button" (click)="returnToLogin()">
               Cerrar sesión
@@ -16,7 +16,7 @@
       </div>
   
       <section>
-        <router-outlet></router-outlet>
+        <app-user-list></app-user-list>
       </section>
     
     </div>

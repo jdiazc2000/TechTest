@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-notfound',
@@ -11,9 +12,16 @@ import { CommonModule } from '@angular/common';
   styleUrl: './notfound.component.scss'
 })
 export class NotfoundComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService) {
+    console.log(this.userService.getUser())
+  }
 
   goToPokedex() {
-    this.router.navigate(['/list']);
+    if(this.userService.getUser().length === 0){
+      this.router.navigate(['/login']);
+    }else{
+      this.router.navigate(['/list']);
+    }
+
   }
 }
