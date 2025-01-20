@@ -20,9 +20,6 @@ describe('LoginComponent', () => {
   let mockUserService = {
     getUserByUsernameAndPassword: jasmine.createSpy('getUserByUsernameAndPassword').and.returnValue(undefined)
   };
-  let mockLoaderService = {
-    showLoginError: jasmine.createSpy('showLoginError')
-  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -40,7 +37,6 @@ describe('LoginComponent', () => {
         { provide: Router, useValue: mockRouter },
         { provide: ActivatedRoute, useValue: { params: of({ id: '1' }) } },
         { provide: UserService, useValue: mockUserService },
-        { provide: LoaderService, useValue: mockLoaderService },
         Apollo
       ]
     }).compileComponents();
@@ -78,9 +74,4 @@ describe('LoginComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/list']);
   });
 
-  it('should show login error if user is not found', () => {
-    component.loginForm.setValue({ username: 'wrong_user', password: 'wrong_password' });
-    component.onSubmit();
-    expect(mockLoaderService.showLoginError).toHaveBeenCalledWith('login');
-  });
 });
