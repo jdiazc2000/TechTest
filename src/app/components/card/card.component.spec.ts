@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CardComponent } from './card.component';
+import { Apollo } from 'apollo-angular';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('CardComponent', () => {
   let component: CardComponent;
@@ -8,7 +11,11 @@ describe('CardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CardComponent]
+      imports: [CardComponent],
+      providers: [
+        Apollo,
+        { provide: ActivatedRoute, useValue: { params: of({ id: '1' }) } },  
+      ]
     })
     .compileComponents();
 

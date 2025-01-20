@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card'; 
 import { User } from '../../core/models/User';
 import { UserService } from '../../services/user/user.service';
+import { LoaderService } from '../../services/loader/loader.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -121,7 +122,8 @@ export class LoginComponent {
       }
   ];
 
-  constructor(private fb: FormBuilder, private router: Router, private userService: UserService) {
+  constructor(private fb: FormBuilder, private router: Router, private userService: UserService, private loaderService: LoaderService) {
+
     if (!sessionStorage.getItem('users') || sessionStorage.getItem('users') === '[]') {
       sessionStorage.setItem('users', JSON.stringify(this.users));
     }
@@ -131,15 +133,20 @@ export class LoginComponent {
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
+
   }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      let user = this.userService.getUserByUsernameAndPassword(this.loginForm.value.username, this.loginForm.value.password)
+      const username = this.loginForm.value.username.trim();
+      const password = this.loginForm.value.password.trim();
+      const user = this.userService.getUserByUsernameAndPassword(username, password)
       console.log(user)
       if(user !== undefined){
         sessionStorage.setItem('user', JSON.stringify(user));
         this.router.navigate(['/list']);
+      }else{
+        this.loaderService.showLoginError('login')
       } 
     }
   }

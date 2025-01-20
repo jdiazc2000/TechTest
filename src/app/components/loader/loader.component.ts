@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
   styleUrl: './loader.component.scss'
 })
 export class LoaderComponent implements OnInit {
-  state: 'loading' | 'error'  = 'loading';
-  from: 'detail' | 'list' = 'list';
+  state: 'loading' | 'error' | 'login' = 'loading';
+  from: 'detail' | 'list' | 'login' = 'list';
 
   constructor(private loaderService: LoaderService, private router: Router) {
     effect(() => {
@@ -24,10 +24,16 @@ export class LoaderComponent implements OnInit {
   }
 
   Close() {
-    if(this.from === 'list'){
+    switch (this.from) {
+      case 'list':
       this.router.navigate(['/login']);
-    }else{
+      break;
+      case 'detail':
       this.router.navigate(['/list']);
+      break;
+      default:
+      this.loaderService.closeLoading();
+      break;
     }
   }
 }

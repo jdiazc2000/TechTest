@@ -6,8 +6,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LoaderService {
   private showLoader = new BehaviorSubject<boolean>(false);
-  loaderState = signal<'loading' | 'error'>('loading');
-  from = signal< 'detail' | 'list'>('list');
+  loaderState = signal<'loading' | 'error' | 'login'>('loading');
+  from = signal< 'detail' | 'list' | 'login'>('list');
 
   showLoader$ = this.showLoader.asObservable()
 
@@ -22,8 +22,15 @@ export class LoaderService {
     this.loaderState.set('error');
   }
 
+  showLoginError(from: 'detail' | 'list' | 'login') {
+    this.from.set(from);
+    this.showLoader.next(true);
+    this.loaderState.set('login');
+  }
+
   closeLoading(){
     this.showLoader.next(false);
+    this.loaderState.set('loading')
   }
 }
 

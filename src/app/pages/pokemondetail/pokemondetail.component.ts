@@ -27,11 +27,13 @@ export class PokemondetailComponent {
   EvolutiveLine: any = [];
 
   constructor(private pokemonService: PokemonService, private route: ActivatedRoute, private loaderService: LoaderService) {
-    this.pokemonname = this.route.snapshot.params['name'];
   }
 
   ngOnInit() {
-    this.fetchPokemon();
+    this.route.params.subscribe(params => {
+      this.pokemonname = params['name'];
+      this.fetchPokemon();
+    });
   }
 
   async fetchPokemon(): Promise<void> {

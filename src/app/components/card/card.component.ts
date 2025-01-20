@@ -12,5 +12,5 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './card.component.scss'
 })
 export class CardComponent {
-  @Input () pokemon: any = [];
+  @Input() pokemon: any = { name: '' };
 }
