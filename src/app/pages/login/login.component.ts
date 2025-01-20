@@ -124,10 +124,11 @@ export class LoginComponent {
 
   constructor(private fb: FormBuilder, private router: Router, private userService: UserService, private loaderService: LoaderService) {
 
-    if (!sessionStorage.getItem('users') || sessionStorage.getItem('users') === '[]') {
-      sessionStorage.setItem('users', JSON.stringify(this.users));
+    if (!localStorage.getItem('users') || localStorage.getItem('users') === '[]') {
+      localStorage.setItem('users', JSON.stringify(this.users));
+      location.reload();
     }
-    sessionStorage.removeItem('user');
+    localStorage.removeItem('user');
     
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
@@ -143,7 +144,7 @@ export class LoginComponent {
       const user = this.userService.getUserByUsernameAndPassword(username, password)
       console.log(user)
       if(user !== undefined){
-        sessionStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify(user));
         this.router.navigate(['/list']);
       }else{
         this.loaderService.showLoginError('login')

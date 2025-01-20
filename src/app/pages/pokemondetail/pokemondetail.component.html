@@ -40,13 +40,13 @@
                             @for (stat of pokemon?.pokemon?.stats; track stat.stat.name) {
                                 <div class="pokemon-stat">
                                     <div class="stat-header">
-                                        <span>{{ getPokemonStat(stat.stat.name) }}</span>
-                                        <span><strong>{{ ((stat.base_stat / 255) * 100) | number:'1.0-0' }}%</strong></span>
+                                        <span>{{getPokemonStat(stat.stat.name)}}</span>
+                                        <span><strong>{{stat.base_stat}}</strong></span>
                                     </div>
                                     <div class="stat-bar">
                                         <div class="stat-bar-fill" 
                                             [ngStyle]="{ 'background-color': getPokemonTypeStyle(pokemon?.pokemon?.types[0]?.type.name).background }" 
-                                            [style.width.%]="(stat.base_stat / 255) * 100">
+                                            [style.width.%]="stat.base_stat">
                                         </div>
                                     </div>
                                 </div>
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                             @for(pokemon of EvolutiveLine; track pokemon.pokemon.id) {
-                                <div class="pokemon-evolution">
+                                <div class="pokemon-evolution" (click)="findPokemon(pokemon?.pokemon?.name)">
                                     <b>{{ pokemon?.pokemon?.name | capitalize }}</b>
                                     <div class="pokemon-evolution-image">
                                         <img 

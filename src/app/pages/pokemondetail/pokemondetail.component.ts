@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { PokemonService } from '../../services/pokemon/pokemon.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,18 +20,20 @@ import { LoaderService } from '../../services/loader/loader.service';
   styleUrl: './pokemondetail.component.scss',
 })
 
-export class PokemondetailComponent {
+export class PokemondetailComponent implements OnInit {
   pokemon: any = [];
   pokemonname: string = "";
   loading: boolean = true;
   EvolutiveLine: any = [];
 
-  constructor(private pokemonService: PokemonService, private route: ActivatedRoute, private loaderService: LoaderService) {
+  constructor(private pokemonService: PokemonService, private route: ActivatedRoute, private loaderService: LoaderService, private router: Router) {
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.pokemonname = params['name'];
+      this.pokemon = [];
+      this.EvolutiveLine = [];
       this.fetchPokemon();
     });
   }
@@ -64,6 +66,7 @@ export class PokemondetailComponent {
       this.loaderService.showLoading();
       const data: any = await firstValueFrom(this.pokemonService.getPokemon(pokemon));
       this.EvolutiveLine.push(data);  
+      console.log(this.EvolutiveLine)
       this.loaderService.closeLoading();
     } catch (error) {
       console.error("Error fetching Pokemon evolutive line:", error);
@@ -82,5 +85,9 @@ export class PokemondetailComponent {
   getPokemonTypeStyle(type: string): { color: string; background: string } {
     const typeColors = POKEMON_TYPE_COLORS[type] || { text: "#000", background: "#ddd" };
     return { color: typeColors.text, background: typeColors.background };
+  }
+
+  findPokemon(name: string) {
+    this.router.navigate(['/pokemon',name]);
   }
 }

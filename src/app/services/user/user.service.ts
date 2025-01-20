@@ -11,12 +11,12 @@ export class UserService {
     users$ = this.userSubject.asObservable();
   
     private getUsersFromSession(): User[] {
-      const storedUsers = sessionStorage.getItem('users');
+      const storedUsers = localStorage.getItem('users');
       return storedUsers ? JSON.parse(storedUsers) : [];
     }
   
     private saveUsersToSession() {
-      sessionStorage.setItem('users', JSON.stringify(this.users));
+      localStorage.setItem('users', JSON.stringify(this.users));
     }
   
     addUser(user: User) {
@@ -42,7 +42,7 @@ export class UserService {
     }
 
     getUser(): User[] {
-      return sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user') as string) : [];
+      return localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') as string) : [];
     }
 
     getUserById(id: number): User | undefined {

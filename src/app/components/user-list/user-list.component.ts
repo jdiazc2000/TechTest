@@ -121,8 +121,9 @@ export class UserListComponent {
   EditingUserId = 0;
   
   constructor(private userService: UserService, private router: Router) {
-    if (!sessionStorage.getItem('users') || sessionStorage.getItem('users') === '[]') {
-      sessionStorage.setItem('users', JSON.stringify(this.users));
+    if (!localStorage.getItem('users') || localStorage.getItem('users') === '[]') {
+      localStorage.setItem('users', JSON.stringify(this.users));
+      location.reload();
     }
   }
 
