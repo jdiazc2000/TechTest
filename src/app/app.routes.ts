@@ -8,11 +8,10 @@ import { UsersmaintenanceComponent } from './pages/usersmaintenance/usersmainten
 import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'list', component: PokemonlistComponent, canActivate: [authGuard] },
-  { path: 'pokemon/:name', component: PokemondetailComponent, canActivate: [authGuard]  },
-  { path: 'usersmaintenance', component: UsersmaintenanceComponent, canActivate: [adminGuard]},
-  { path: '**', component: NotfoundComponent},
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
-  
+  { path: 'pokemon/:name', component: PokemondetailComponent, canActivate: [authGuard] },
+  { path: 'usersmaintenance', component: UsersmaintenanceComponent, canActivate: [adminGuard] },
+  { path: '**', component: NotfoundComponent }
 ];

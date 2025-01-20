@@ -142,7 +142,6 @@ export class LoginComponent {
       const username = this.loginForm.value.username.trim();
       const password = this.loginForm.value.password.trim();
       const user = this.userService.getUserByUsernameAndPassword(username, password)
-      console.log(user)
       if(user !== undefined){
         localStorage.setItem('user', JSON.stringify(user));
         this.router.navigate(['/list']);

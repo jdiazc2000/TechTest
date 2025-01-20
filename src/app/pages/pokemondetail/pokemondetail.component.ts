@@ -66,7 +66,6 @@ export class PokemondetailComponent implements OnInit {
       this.loaderService.showLoading();
       const data: any = await firstValueFrom(this.pokemonService.getPokemon(pokemon));
       this.EvolutiveLine.push(data);  
-      console.log(this.EvolutiveLine)
       this.loaderService.closeLoading();
     } catch (error) {
       console.error("Error fetching Pokemon evolutive line:", error);

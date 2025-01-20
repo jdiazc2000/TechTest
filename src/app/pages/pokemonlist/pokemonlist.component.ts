@@ -36,7 +36,6 @@ export class PokemonlistComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.loaderService.showLoading();
     this.user = this.userService.getUser();
-    console.log(this.user)
     try {
       const alldata: any = await firstValueFrom(this.pokemonService.getPokemons(1302, 0));
       this.allpokemons = alldata.pokemons.results || [];

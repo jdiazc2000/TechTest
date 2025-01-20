@@ -12,9 +12,7 @@ import { UserService } from '../../services/user/user.service';
   styleUrl: './notfound.component.scss'
 })
 export class NotfoundComponent {
-  constructor(private router: Router, private userService: UserService) {
-    console.log(this.userService.getUser())
-  }
+  constructor(private router: Router, private userService: UserService) {}
 
   goToPokedex() {
     if(this.userService.getUser().length === 0){
