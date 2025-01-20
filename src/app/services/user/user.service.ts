@@ -19,6 +19,10 @@ export class UserService {
       localStorage.setItem('users', JSON.stringify(this.users));
     }
   
+    getUsers(){
+      return this.users;
+    }
+
     addUser(user: User) {
       user.id = this.users.length + 1;
       this.users.push(user);

@@ -12,7 +12,6 @@
   }
   
   .popup {
-    background: white;
     border-radius: 10px;
     padding: 20px;
     text-align: center;
@@ -21,7 +20,7 @@
 
   .user-form {
     max-width: 500px;
-
+    padding: 1rem;
     background: white;
     border-radius: 10px;
   
@@ -101,7 +100,10 @@
     .user-form {
       margin: 1rem;
       padding: 1rem;
-  
+      background-color: none;
+      height: 30rem;
+      overflow: scroll;
+
       h2 {
         font-size: 1.5rem;
         margin-bottom: 1.5rem;

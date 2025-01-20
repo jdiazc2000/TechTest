@@ -54,6 +54,8 @@ $secondary-color: #1b5790;
       text-align: center;
       transition: box-shadow 0.3s ease;
       cursor: pointer;
+      max-height: 285px;
+      align-self: center;
 
       .actions{
         display: flex;

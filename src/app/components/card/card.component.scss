@@ -24,7 +24,7 @@ $padding: 2rem;
   .pokemon-card {
     @include card-styles;
     padding: 1.5rem;
-    max-height: 268px;
+    max-height: 250px;
     
     &:hover .pokemon-name,
     &:hover .pokemon-id {

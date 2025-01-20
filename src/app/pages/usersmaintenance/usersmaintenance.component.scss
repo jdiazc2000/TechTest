@@ -96,3 +96,12 @@ $translucentbackground: #ffffff65;
     }
   }
 }
+
+@media (max-width: 585px) {
+  .header{
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+  }
+
+}

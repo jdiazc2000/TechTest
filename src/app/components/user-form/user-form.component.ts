@@ -35,12 +35,10 @@ export class UserFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.UserID)
     if(this.Editing){
       const user = this.userService.getUserById(this.UserID)
       if (user) {
         this.userForm.patchValue(user);
-        console.log(user)
       }
     }
   }
@@ -63,8 +61,11 @@ export class UserFormComponent implements OnInit {
         this.userForm.patchValue({ photo: 'https://w7.pngwing.com/pngs/998/956/png-transparent-profile-pic-illustration-thumbnail.png' });
       }
 
+      const users = this.userService.getUsers();
+      const maxId = users.length > 0 ? Math.max(...users.map(user => user.id)) : 0;
+
       const newUser: User = {
-        id: Math.floor(Math.random() * 1000),
+        id: maxId + 1,
         ...this.userForm.value
       };
       this.userService.addUser(newUser);
